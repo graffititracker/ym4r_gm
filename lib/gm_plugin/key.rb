@@ -10,7 +10,7 @@ module Ym4r
     class ApiKey
       #Read the API key config for the current ENV
       unless File.exist?(File.join(Rails.root.to_s,"config","gmaps_api_key.yml"))
-        raise GMapsAPIKeyConfigFileNotFoundException.new("File config/gmaps_api_key.yml not found")
+        raise GMapsAPIKeyConfigFileNotFoundException.new("File #{File.join(Rails.root.to_s,"config","gmaps_api_key.yml")} not found")
       else
         env = ENV['RAILS_ENV'] || Rails.env
         GMAPS_API_KEY = YAML.load_file(File.join(Rails.root.to_s,"config","gmaps_api_key.yml"))[env]
