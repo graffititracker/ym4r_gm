@@ -1,4 +1,7 @@
 module Ym4r
+
+  # None of these classes are used in Google Map V3
+
   module GmPlugin
     #Small map control. Report to the Google Maps API documentation for details.
     class GSmallMapControl

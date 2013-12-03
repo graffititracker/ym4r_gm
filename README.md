@@ -86,7 +86,7 @@ Following is some notes about manipulating Google Maps with the library:
 
 
 ### Naming conventions
-The names of the Ruby class follow the ones in the JavaScript Google Maps API v2, except for GMap2, which in Ruby code is called simply GMap. To know what is possible to do with each class, you should refer to the documentation available on Google website.
+The names of the Ruby class follow the ones in the JavaScript Google Maps API v2, except for google.maps.Map, which in Ruby code is called simply GMap. To know what is possible to do with each class, you should refer to the documentation available on Google website.
 
 On top of that, you have some convenience methods for initializing the map (in the GMap class). Also, the constructors of some classes accept different types of arguments to be converted later in the correct JavaScript format. For example, the +GMarker+ aclass accepts an array of 2 floats as parameter, in addition of a GLatLng object, to indicate its position. It also facilitates the attribution of an HTML info window, displayed when the user clicks on it, since you can pass to the constructor an options hash with the *:info_window* key and the text to display as the value, instead of having to wire the response to a click event yourself.
 
@@ -101,7 +101,7 @@ For example, here is a typical initialization sequence for a map
 >	@map.overlay_init GMarker.new([35.12878, -110.578],:title => "Hello!")
 >	@map.record_init @map.add_overlay(GMarker.new([35.12878, -110.578],:title => "Hello!"))
 
-While *center_zoom_init*, *control_init* or *overlay_init* (and generally all the GMap methods which end in *init*) are one of the rare convenience methods that do not output JavaScript, the *add_overlay* does. Actually, if you look at the code of the GMap class, you won't find any +add_overlay+ method, although in the documentation of the GMap2 class from the Google Maps API documentation, you will find something about the +addOverlay+ JavaScript method. In fact, when you call on a mapping object an unknow method, it is converted to a javascriptified version of it, along with its arguments, and a string of JavaScript code is output. So the *@map.add_overlay...* above is converted to *"map.addOverlay(new GMarker(GLatLng.new(35.12878, -110.578),{title:\"Hello!\"}))"*, which is then passed to the +record_init+ method of a Ruby GMap object to be later output along with the rest of the initialization code. Any arbitrary JavaScript code can be passed to the +record_init+ method. Note that 2 last lines of the previous code sample are strictly equivalent and since the +overlay_init+ version is a bit simpler, it should be preferred.
+While *center_zoom_init*, *control_init* or *overlay_init* (and generally all the GMap methods which end in *init*) are one of the rare convenience methods that do not output JavaScript, the *add_overlay* does. Actually, if you look at the code of the GMap class, you won't find any +add_overlay+ method, although in the documentation of the google.maps.Map class from the Google Maps API documentation, you will find something about the +addOverlay+ JavaScript method. In fact, when you call on a mapping object an unknow method, it is converted to a javascriptified version of it, along with its arguments, and a string of JavaScript code is output. So the *@map.add_overlay...* above is converted to *"map.addOverlay(new GMarker(GLatLng.new(35.12878, -110.578),{title:\"Hello!\"}))"*, which is then passed to the +record_init+ method of a Ruby GMap object to be later output along with the rest of the initialization code. Any arbitrary JavaScript code can be passed to the +record_init+ method. Note that 2 last lines of the previous code sample are strictly equivalent and since the +overlay_init+ version is a bit simpler, it should be preferred.
 
 
 ### Initialization of the map
@@ -446,7 +446,7 @@ Google now requires the 'sensor' attribute in the GET API request. It is default
 - Local Search overlay added. See above for implementation.
 - GMarker can now be placed by address (in addition to coordinates). Some code to geocode the address when the marker is initialized is added
 - Addition of a +center_zoom_on_points_init+ to center and zoom on a group of pixel
-- In JS, addition of methods to GMap2 and GMarkerGroup to center and zoom on a group of points or markers (thanks to Glen Barnes)
+- In JS, addition of methods to google.maps.Map and GMarkerGroup to center and zoom on a group of points or markers (thanks to Glen Barnes)
 - Support for easy setup of fullscreen maps
 
 ## TODO

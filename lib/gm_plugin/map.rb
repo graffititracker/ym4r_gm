@@ -1,6 +1,6 @@
 module Ym4r
   module GmPlugin 
-    #Representing the Google Maps API class GMap2.
+    #Representing the Google Maps API class google.maps.Map.
     class GMap
       include MappingObject
       
@@ -78,6 +78,7 @@ module Ym4r
 
       #Initializes the controls: you can pass a hash with keys <tt>:small_map</tt>, <tt>:large_map</tt>, <tt>:small_zoom</tt>, <tt>:scale</tt>, <tt>:map_type</tt>, <tt>:overview_map</tt> and hash of options controlling its display (<tt>:hide</tt> and <tt>:size</tt>), <tt>:local_search</tt>, <tt>:local_search_options</tt>, and <tt>:show_on_focus</tt>
       def control_init(controls = {})
+=begin # None of these classes are used in Google Map V3
         @init_end << add_control(GSmallMapControl.new) if controls[:small_map]
         @init_end << add_control(GLargeMapControl.new) if controls[:large_map]
         @init_end << add_control(GSmallZoomControl.new) if controls[:small_zoom]
@@ -100,6 +101,7 @@ module Ym4r
           event_init(self, :mouseover, "function(){#{@variable}.showControls();}")
           event_init(self, :mouseout,  "function(){#{@variable}.hideControls();}")
         end
+=end
       end
       
       #Initializes the interface configuration: double-click zoom, dragging, continuous zoom,... You can pass a hash with keys <tt>:dragging</tt>, <tt>:info_window</tt>, <tt>:double_click_zoom</tt>, <tt>:continuous_zoom</tt> and <tt>:scroll_wheel_zoom</tt>. The values should be true or false. Check the google maps API doc to know what the default values are.
@@ -263,7 +265,7 @@ module Ym4r
           html << "function() {\n"
         end
 
-        html << "if (GBrowserIsCompatible()) {\n" 
+        html << "if (true) {\n" 
         
         if fullscreen
           #Adding the initial resizing and setting up the event handler for
@@ -292,9 +294,9 @@ module Ym4r
         html
       end
       
-      #Outputs in JavaScript the creation of a GMap2 object 
+      #Outputs in JavaScript the creation of a google.maps.Map object 
       def create
-        "new GMap2(document.getElementById(\"#{@container}\"))"
+        "new google.maps.Map(document.getElementById(\"#{@container}\"))"
       end
     end
   end

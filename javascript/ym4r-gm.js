@@ -55,7 +55,7 @@ function addGeocodingToMarker(marker,address){
 
 
 
-GMap2.prototype.centerAndZoomOnMarkers = function(markers) {
+google.maps.Map.prototype.centerAndZoomOnMarkers = function(markers) {
      var bounds = new GLatLngBounds(markers[0].getPoint(),
 				    markers[0].getPoint());
      for (var i=1, len = markers.length ; i<len; i++) {
@@ -65,7 +65,7 @@ GMap2.prototype.centerAndZoomOnMarkers = function(markers) {
      this.centerAndZoomOnBounds(bounds);
  } 
 
-GMap2.prototype.centerAndZoomOnPoints = function(points) {
+google.maps.Map.prototype.centerAndZoomOnPoints = function(points) {
      var bounds = new GLatLngBounds(points[0],
 				    points[0]);
      for (var i=1, len = points.length ; i<len; i++) {
@@ -75,7 +75,7 @@ GMap2.prototype.centerAndZoomOnPoints = function(points) {
      this.centerAndZoomOnBounds(bounds);
  } 
 
-GMap2.prototype.centerAndZoomOnBounds = function(bounds) {
+google.maps.Map.prototype.centerAndZoomOnBounds = function(bounds) {
     var center = bounds.getCenter();
     this.setCenter(center, this.getBoundsZoomLevel(bounds));
 } 
@@ -110,8 +110,3 @@ function addMarkersToManager(manager,managedMarkers){
 
 var INVISIBLE = new GLatLng(0,0); //almost always invisible
 
-if(self.Event && Event.observe){
-    Event.observe(window, 'unload', GUnload);
-}else{
-    window.onunload = GUnload;
-}
