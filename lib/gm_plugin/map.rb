@@ -31,9 +31,9 @@ module Ym4r
         options[:hl] ||= ''
         options[:local_search] = false unless options.has_key?(:local_search)
         options[:sensor] = false unless options.has_key?(:sensor)
-        options[:version] ||= "2.x"
+        options[:version] ||= "3"
         api_key = ApiKey.get(options)
-        a = "<script src=\"http://maps.google.com/maps?file=api&amp;v=#{options[:version]}&amp;key=#{api_key}&amp;hl=#{options[:hl]}&amp;sensor=#{options[:sensor]}\" type=\"text/javascript\"></script>\n"
+        a = "<script src=\"http://maps.googleapis.com/maps/api/js?v=#{options[:version]}&amp;client=#{api_key}&amp;hl=#{options[:hl]}&amp;sensor=#{options[:sensor]}\" type=\"text/javascript\"></script>\n"
         # Already loaded by the asset pipeline
         # a << "<script src=\"/assets/ym4r-gm/ym4r-gm.js\" type=\"text/javascript\"></script>\n" unless options[:without_js]
         a << "<!--[if IE]>\n<style type=\"text/css\">\n v\\:* { behavior:url(#default#VML);}\n</style>\n<![endif]-->\n" if options[:with_vml]
@@ -218,12 +218,12 @@ module Ym4r
 
       #Registers an event
       def event_init(object,event,callback)
-        @init << "GEvent.addListener(#{object.to_javascript},\"#{MappingObject.javascriptify_method(event.to_s)}\",#{callback});"
+        @init << "google.maps.event.addListener(#{object.to_javascript},\"#{MappingObject.javascriptify_method(event.to_s)}\",#{callback});"
       end
 
       #Registers an event globally
       def event_global_init(object,event,callback)
-        @global_init << "GEvent.addListener(#{object.to_javascript},\"#{MappingObject.javascriptify_method(event.to_s)}\",#{callback});"
+        @global_init << "google.maps.event.addListener(#{object.to_javascript},\"#{MappingObject.javascriptify_method(event.to_s)}\",#{callback});"
       end
       
       #Declares the overlay globally with name +name+

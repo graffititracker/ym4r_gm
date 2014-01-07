@@ -6,7 +6,7 @@ module Ym4r
     class AmbiguousGMapsAPIKeyException < StandardError
     end
     
-    #Class fo the manipulation of the API key
+    # Class for the manipulation of the API key
     class ApiKey
       # GMAPS_API_KEY is now loaded in the railtie to be able to use Rails.root.
 

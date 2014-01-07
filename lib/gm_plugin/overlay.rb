@@ -25,11 +25,14 @@ module Ym4r
       end
       #Creates a marker: If an info_window or info_window_tabs is present, the response to the click action from the user is setup here.
       def create
-        if @options.empty?
-          creation = "new GMarker(#{MappingObject.javascriptify_variable(@point)})"
-        else
-          creation = "new GMarker(#{MappingObject.javascriptify_variable(@point)},#{MappingObject.javascriptify_variable(@options)})"
-        end
+        creation = "new google.maps.Marker({position: #{MappingObject.javascriptify_variable(@point)}})"
+        # Currently we don't handle any option
+        # if @options.empty?
+        #   creation = "new google.maps.Marker({position: #{MappingObject.javascriptify_variable(@point)}})"
+        # else
+          # V2 version, already invalid
+          # creation = "new GMarker(#{MappingObject.javascriptify_variable(@point)},#{MappingObject.javascriptify_variable(@options)})"
+        # end
         if @info_window && @info_window.is_a?(String)
           creation = "addInfoWindowToMarker(#{creation},#{MappingObject.javascriptify_variable(@info_window)},#{MappingObject.javascriptify_variable(@info_window_options)})"
         elsif @info_window_tabs && @info_window_tabs.is_a?(Hash)
@@ -150,9 +153,9 @@ module Ym4r
       end
       def create
         unless @unbounded
-          "new GLatLng(#{MappingObject.javascriptify_variable(@lat)},#{MappingObject.javascriptify_variable(@lng)})"
+          "new google.maps.LatLng(#{MappingObject.javascriptify_variable(@lat)},#{MappingObject.javascriptify_variable(@lng)})"
         else
-          "new GLatLng(#{MappingObject.javascriptify_variable(@lat)},#{MappingObject.javascriptify_variable(@lng)},#{MappingObject.javascriptify_variable(@unbounded)})"
+          "new google.maps.LatLng(#{MappingObject.javascriptify_variable(@lat)},#{MappingObject.javascriptify_variable(@lng)},#{MappingObject.javascriptify_variable(@unbounded)})"
         end
       end
     end
@@ -161,7 +164,7 @@ module Ym4r
     class GLatLngBounds < Struct.new(:sw,:ne)
       include MappingObject
       def create
-        "new GLatLngBounds(#{MappingObject.javascriptify_variable(sw)},#{MappingObject.javascriptify_variable(ne)})"
+        "new google.maps.LatLngBounds(#{MappingObject.javascriptify_variable(sw)},#{MappingObject.javascriptify_variable(ne)})"
       end
     end
 
